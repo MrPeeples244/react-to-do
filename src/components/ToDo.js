@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 
-class ToDo extends Components {
+class ToDo extends Component {
   render() {
     return(
-      <li> A task will go here </li>
+      <li>
+        <input type="checkbox" checked={ this.props.isCompleted } />
+        <span> { this.props.description }</span>
+      </li>
     );
   }
 }
