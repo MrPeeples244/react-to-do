@@ -6,12 +6,19 @@ class App extends Component {
     super(props);
     this.state = {
       todos: [
-        { description: 'Walk the cat', isCompleted: true },
+        { description: 'Walk the cat', isCompleted: false },
         { description: 'Throw the dishes away', isCompleted: false},
         { description: 'Buy new dishes', isCompleted: false }
-      ],
-      newTodoDescription: ''
-    };
+        ],
+        newTodoDescription: ''
+      };
+        this.deleteTodo = this.deleteTodo.bind(this)
+  }
+
+
+  deleteTodo(index){
+    const todos = this.state.todos.filter(remove => remove.isCompleted !== true);
+    this.setState({todos : todos});
   }
 
   handleChange(e) {
@@ -35,14 +42,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>Welcome to My To-Do App</h1>
         <ul>
           { this.state.todos.map( (todo, index) =>
-              <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) }/>
+              <ToDo key={ index } description={ todo.description } deleteTodo= { this.deleteTodo } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
           )}
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
           <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
           <input type="submit" />
+
         </form>
       </div>
     );
